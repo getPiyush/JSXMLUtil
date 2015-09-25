@@ -3,20 +3,23 @@ Javascript XML utility to convert String into XML DOM object
 I have just mentioned utility functions which will later be converted into a full scale library and added to repository
 Will Start with Core/Main function
 
+
+var isIe = !!window.ActiveXObject;
+
 convert:function(xmlstr)
 		{
 			//xmlstr = xmlstr.replace(/&amp;/g,'&');
 			//xmlstr = xmlstr.replace(/&/g,'&amp;');
 			
-			//xmlstr = SEG.utils.ApplicationUtil.htmlUnescape(xmlstr);
-			//xmlstr = SEG.utils.ApplicationUtil.htmlEscape(xmlstr);
+			//xmlstr = this.htmlUnescape(xmlstr);
+			//xmlstr = this.htmlEscape(xmlstr);
 			
-			xmlstr = SEG.utils.ApplicationUtil.unEscapeXMLAttributes(xmlstr);
-			xmlstr = SEG.utils.ApplicationUtil.escapeXMLAttributes(xmlstr);
+			xmlstr = this.unEscapeXMLAttributes(xmlstr);
+			xmlstr = this..escapeXMLAttributes(xmlstr);
 			
 			var doc;
 			//if (window.ActiveXObject) {         //IE
-			if(SEG.utils.ApplicationUtil.isIE()){
+			if(this.isIe){
 			    var doc = new ActiveXObject("Microsoft.XMLDOM");
 			    //doc.async = "false";
 			    doc.loadXML(xmlstr);
@@ -44,7 +47,7 @@ convert:function(xmlstr)
 			for(var i=0;i<strArray.length;i++)
 			{
 				var st =  strArray[i].substring(1, strArray[i].length - 1);
-				xml = xml.replace(st,SEG.utils.ApplicationUtil.xmlEscape(st));
+				xml = xml.replace(st,this.xmlEscape(st));
 			}
 			return xml;
 			
@@ -57,14 +60,14 @@ convert:function(xmlstr)
 			for(var i=0;i<strArray.length;i++)
 			{
 				var st =  strArray[i].substring(1, strArray[i].length - 1);
-				xml = xml.replace(st,SEG.utils.ApplicationUtil.xmlUnescape(st));
+				xml = xml.replace(st,this.xmlUnescape(st));
 			}
 			return xml;
 		},
 		
 		
 		xmlEscape:function(str){
-			str = SEG.utils.ApplicationUtil.xmlUnescape(str);
+			str = this.xmlUnescape(str);
 		    return String(str)
 		            .replace(/&/g, '&amp;')
 		            .replace(/"/g, '&quot;')
